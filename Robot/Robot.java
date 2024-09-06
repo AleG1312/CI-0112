@@ -11,9 +11,7 @@ public class Robot
     private String nombre;      //El nombre del robot
     private int puntosVida;     //Cantidad de vida que tiene (entre 50 y 100)
     private int ataque;         //Cantidad de daño que causa (entre 10 y 20)
-    
-    //Defino el método constructor
-    
+    private int defensa;        //Cantidad de defensa del robot(entre 0 y 10)
     
     //Defino los setters y los getters
     
@@ -24,7 +22,6 @@ public class Robot
         return this.nombre;
     }
     
-    
     public void setPuntosVida(int puntosVida){
         this.puntosVida = puntosVida;
     }
@@ -32,18 +29,43 @@ public class Robot
         return this.puntosVida ;
     }
     
-    public void Set(){
-        this. = ;
+    public void setAtaque(int ataque){
+        this.ataque = ataque;
     }
-    public get(){
-        return this. ;
-    }
-    
-    public void Set(){
-        this. = ;
-    }
-    public get(){
-        return this. ;
+    public int getAtaque(){
+        return this.ataque ;
     }
     
+    public void SetDefensa(int defensa){
+        this.defensa = defensa;
+    }
+    public int getDefensa(){
+        return this.defensa;
+    }    
+    
+    
+    //Creo el método constructor
+    public Robot (String nombre, int puntosVida, int ataque){
+        this.nombre = nombre;
+        this.puntosVida = puntosVida;
+        this.ataque = ataque;
+        this.defensa = 0;       //La inicializo como cero pero la voy a cambiar posteriormente
+    }
+
+    
+    //Método para realizar el ataque
+    public void atacar(Robot robot1, Robot robot2){
+        int nuevaVida = robot2.getPuntosVida() - robot1.getAtaque();
+        robot2.setPuntosVida(nuevaVida);
+    }
+    
+    //Método para ver si el robot sigue vivo o no
+    public boolean estaVivo(Robot robot){
+        if (robot.getPuntosVida() > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
