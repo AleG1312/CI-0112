@@ -45,17 +45,24 @@ public class Robot
     
     
     //Creo el método constructor
-    public Robot (String nombre, int puntosVida, int ataque){
+    public Robot (String nombre, int puntosVida, int ataque, int defensa){
         this.nombre = nombre;
         this.puntosVida = puntosVida;
         this.ataque = ataque;
-        this.defensa = 0;       //La inicializo como cero pero la voy a cambiar posteriormente
+        this.defensa = defensa;
     }
+    
 
     
-    //Método para realizar el ataque
-    public void atacar(Robot robot1, Robot robot2){
+    //Método para realizar el ataque. Recibe (atacante, defensor)
+    public static void atacar(Robot robot1, Robot robot2){
         int nuevaVida = robot2.getPuntosVida() - robot1.getAtaque();
+        
+        //Este condicional es para evitar robots con vida negativa
+        if (nuevaVida < 0){
+            nuevaVida = 0;
+        }
+        
         robot2.setPuntosVida(nuevaVida);
     }
     
