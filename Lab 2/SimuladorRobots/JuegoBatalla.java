@@ -46,51 +46,60 @@ public class JuegoBatalla
         //Caso #2: Se inicializan dos o más robots
         else if(jugadores.length > 1){
             //Array que me dice la cantidad de jugadores vivos restantes
-            int[] jugadoresVivos = new int[2];
-            
-            //Array que me arroja la pareja [atacante,defensor]
-            int[] participantesDeRonda = new int[2];
+            int[] jugadoresVivos = new int[2];            
             
             //Contador para el número de ronda
             int numeroDeRonda = 0;   
+            
+            boolean hayGanador = false;
         
-            while (true){
-                //Limpio la pantalla
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();            
-                
-                //Aumento el contador de la ronda
-                numeroDeRonda += 1; 
-                
-                //Establezco los participantes (atacante, defensor) de la ronda
-                participantesDeRonda = ParticipantesDeEnfrentamiento(jugadores); 
-                
-                //Realizo el enfrentamiento
-                Enfrentamiento(participantesDeRonda, jugadores);             
-                
-                //Despliego los datos generales de la ronda
-                System.out.println("\n----------Información de la Ronda #" + numeroDeRonda + "----------");   
-                System.out.println("Atacante: " + participantesDeRonda[0]);
-                System.out.println("Defensor: " + participantesDeRonda[1]);
-                //Posterior al enfrentamiento, reviso la cantidad de jugadores vivos para comprobar si hay un ganador o si debemos continuar
-                jugadoresVivos = Vivos(jugadores);            
-                if (jugadoresVivos[0] == 1){
-                    break;
-                }            
-                
-                //Opcional: Visualizar el estado de los robots en cualquier momento de la simulación
-                System.out.println("¿Desea visualizar el estado actual de los robots? (1:Sí / 2:No)");
-                int visualizarEstadoActual = input.nextInt();
-                if (visualizarEstadoActual == 1){
-                    VisualizarEstadoRobots(jugadores); 
+            do{               
+                for (int contador = 0; contador < jugadores.length; contador++){
+                    //Defino al atacante
+                    Robot atacante = jugadores[contador];
                     
-                    //Implemento este control para continuar en el momento que el usuario haya terminado de revisar la información
-                    System.out.println("\n¿Listo para continuar a la siguiente ronda? (Presione cualquier tecla)");
-                    input.nextLine();  
-                }           
-                
-                //Esto es para limpiar las entradas del buffer
-                input.nextLine();   
-            }
+                    //Note que el atacante irá en orden por el array
+                    if (atacante.estaVivo() == true){
+                        //Limpio la pantalla
+                        new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();            
+                        
+                        //Aumento el contador de la ronda
+                        numeroDeRonda += 1; 
+                        
+                        //Defino al defensor
+                        Robot defensor = generadorDefensor(contador, jugadores);
+                        
+                        //Realizo el enfrentamiento
+                        Robot.atacar(atacante, defensor);
+                    
+                        //Despliego los datos generales de la ronda
+                        System.out.println("\n----------Información de la Ronda #" + numeroDeRonda + "----------");   
+                        System.out.println("Atacante: " + atacante.getNombre());
+                        System.out.println("Defensor: " + defensor.getNombre());
+
+                        //Posterior al enfrentamiento, reviso la cantidad de jugadores vivos para comprobar si hay un ganador o si debemos continuar
+                        jugadoresVivos = Vivos(jugadores);            
+                        if (jugadoresVivos[0] == 1){
+                            hayGanador = true;
+                            break;
+                        }  
+                        
+                        //Opcional: Visualizar el estado de los robots en cualquier momento de la simulación
+                        System.out.println("¿Desea visualizar el estado actual de los robots? (1:Sí / 2:No)");
+                        int visualizarEstadoActual = input.nextInt();
+                        if (visualizarEstadoActual == 1){
+                            VisualizarEstadoRobots(jugadores); 
+                            
+                            //Implemento este control para continuar en el momento que el usuario haya terminado de revisar la información
+                            System.out.println("\n¿Listo para continuar a la siguiente ronda? (Presione cualquier tecla)");
+                            input.nextLine();  
+                        }           
+                        
+                        //Esto es para limpiar las entradas del buffer
+                        input.nextLine(); 
+                    }                                  
+                }
+            }while(hayGanador == false);
             
             //Ya en este momento, únicamente quedará un jugador vivo
             Robot ganador = jugadores[jugadoresVivos[1]];
@@ -137,48 +146,26 @@ public class JuegoBatalla
         return arregloRobots; 
     }  
     
-    //Método para escoger dos robots aleatorios que se van a enfrentar
-    private static int[] ParticipantesDeEnfrentamiento(Robot[] robots){
+    //Método para escoger de forma aleatoria al robot defensor
+    private static Robot generadorDefensor(int indiceAtacante, Robot[] robots){
         Random random = new Random();
+        Robot robotDefensor;
         int[] participantes = new int[2];
-        
-        //Genero de manera aleatoria el atacante. La única condición es que esté vivo
-        int atacante;
+                
+        //Debe ser diferente al atacante y debe estar vivo
+        int indiceDefensor;
         while (true){
-            atacante = random.nextInt(robots.length - 0) + 0;
-            if (robots[atacante].estaVivo() == true){
-                    break;
-                }
-        }        
-        participantes[0] = atacante;
-        
-        //Genero de manera aleatoria el defensor. Las condiciones es que no sea igual al atacante y que esté vivo
-        int defensor;
-        while (true){
-            defensor = random.nextInt(robots.length - 0) + 0;            
-            if (defensor != atacante){
-                if (robots[defensor].estaVivo() == true){
+            indiceDefensor = random.nextInt(robots.length - 0) + 0;            
+            if (indiceDefensor != indiceAtacante){
+                if (robots[indiceDefensor].estaVivo() == true){
                     break;
                 }
             }
         }        
-        participantes[1] = defensor;
+        robotDefensor = robots[indiceDefensor];
         
-        return participantes;  
-    }    
-
-    
-    //Método para realizar el enfrentamiento entre los robots elegidos
-    private static Robot[] Enfrentamiento(int[] participantes, Robot[] robots){
-        int atacante = participantes[0];
-        int defensor = participantes[1];
-        
-        //Se realiza el ataque
-        Robot.atacar(robots[atacante] , robots[defensor]);
-        
-        return robots;
-    }
-    
+        return robotDefensor;
+    }   
     
     //Este método es para comprobar los jugadores restantes
     private static int[] Vivos (Robot[] arrayRobots){
