@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Vector
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Main\ here.\r\n\ \r\n\ @author\ Alejandro\ Guerra\ Rodriguez\r\n\ @version\ 20-09-2024\r\n
+comment1.params=vector
+comment1.target=void\ SetVector(int[])
+comment2.params=
+comment2.target=int[]\ GetVector()
+comment3.params=vector
+comment3.target=Vector(int[])
+comment4.params=
+comment4.target=void\ MostrarElementos()
+comment5.params=
+comment5.target=void\ RandomizarElementos()
+comment6.params=
+comment6.target=void\ OrdenamientoDeSeleccion()
+numComments=7
