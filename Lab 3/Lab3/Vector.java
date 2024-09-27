@@ -37,7 +37,8 @@ public class Vector
             }
         }
         salida += "]";
-        System.out.println(salida);
+        System.out.println("\n" + salida);
+        System.out.println("--------------------------------");
     }   
     
     //Metodo para randomizar cada elemento del array
@@ -95,14 +96,16 @@ public class Vector
             if (this.vectorAtributo[i] == elemento){
                 indiceDeElemento = i;
                 condicionDePresencia = true;
+                break;
             }
         }
         if (condicionDePresencia == false){
             System.out.println("\nEl elemento no se encuentra en el array.");
         }
         else{
-            System.out.println("\nEl elemento: " + elemento + ", se encuentra en el indice: " + indiceDeElemento);
+            System.out.println("\nLa primera aparición del elemento: " + elemento + ", se encuentra en el indice: " + indiceDeElemento);
         }
+        System.out.println("--------------------------------");
     }
     
     /**
@@ -124,6 +127,7 @@ public class Vector
         }
         System.out.println("\nCantidad de pares: " + cantidadPares);
         System.out.println("Cantidad de impares: " + cantidadImpares);
+        System.out.println("--------------------------------");
     }
     
     /**
@@ -148,6 +152,7 @@ public class Vector
         
         int diferencia = mayor - menor;
         System.out.println("\nLa diferencia entre el numero mayor y el menor es: " + diferencia);
+        System.out.println("--------------------------------");
     }
     
     
@@ -158,27 +163,28 @@ public class Vector
      */
     
     public void Pequeños(){
-        int menor;
-        int segundoMenor;
+        int menor = this.vectorAtributo[0];
+        int anteMenor = this.vectorAtributo[1];
         
-        if (this.vectorAtributo.length == 1){
-            menor = this.vectorAtributo[0];
-            segundoMenor = this.vectorAtributo[0];
-        }
         
-        else{
-            menor = this.vectorAtributo[0];
-            segundoMenor = this.vectorAtributo[1];
-            
-            for (int i = 0; i < this.vectorAtributo.length; i++){
-            if (this.vectorAtributo[i] < menor){
-                segundoMenor = menor;
-                menor = this.vectorAtributo[i];
+        for (int i = 2; i < this.vectorAtributo.length; i++){            
+            int elementoAComparar = this.vectorAtributo[i];
+            if (elementoAComparar < menor){
+                if (menor < anteMenor){
+                anteMenor = menor;
+                } 
+                menor = elementoAComparar;
             } 
+            else{
+                if(menor < elementoAComparar && elementoAComparar < anteMenor){
+                    anteMenor = elementoAComparar;
+                }
             }
         }
         
+        
         System.out.println("\nEl menor es: " + menor);
-        System.out.println("El segundo menor es: " + segundoMenor);        
+        System.out.println("El segundo menor es: " + anteMenor); 
+        System.out.println("--------------------------------");
     }
 }
