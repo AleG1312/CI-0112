@@ -8,12 +8,10 @@
 public class Carta
 {
     private String palo;
-    private String simbolo;
-    private int valor;
+    private String valor;
     
-    public Carta(String palo, String simbolo, int valor){
+    public Carta(String palo, String valor){
         this.palo = palo;
-        this.simbolo = simbolo;
         this.valor = valor;
     }
 }
