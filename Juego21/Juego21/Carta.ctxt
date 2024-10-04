@@ -1,6 +1,16 @@
 #BlueJ class context
 comment0.target=Carta
 comment0.text=\r\n\ Write\ a\ description\ of\ class\ Carta\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=palo\ valor
+comment1.params=valor\ palo
 comment1.target=Carta(java.lang.String,\ java.lang.String)
-numComments=2
+comment2.params=
+comment2.target=java.lang.String\ getPalo()
+comment3.params=palo
+comment3.target=void\ setPalo(java.lang.String)
+comment4.params=
+comment4.target=java.lang.String\ getValor()
+comment5.params=valor
+comment5.target=void\ setValor(java.lang.String)
+comment6.params=
+comment6.target=int\ getPuntaje()
+numComments=7
