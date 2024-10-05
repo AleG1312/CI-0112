@@ -1,9 +1,10 @@
 
 /**
- * Write a description of class Carta here.
+ * "Carta" crea una carta con atributos de palo y valor. 
+ * Además, implementa un método para obtener el puntaje
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alejandro Guerra Rodríguez
+ * @version 05-10-2024
  */
 public class Carta
 {
@@ -40,7 +41,7 @@ public class Carta
             case "3":
                 return 3;
             case "4":
-                return 5;
+                return 4;
             case "5":
                 return 5;
             case "6":
@@ -57,7 +58,7 @@ public class Carta
                 return 10;
             case "Q":
                 return 10;
-            case "k":
+            case "K":
                 return 10;
             default:
                 return 0;

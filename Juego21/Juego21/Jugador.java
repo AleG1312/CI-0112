@@ -1,9 +1,10 @@
 
 /**
- * Write a description of class Jugador here.
+ * "Jugador" crea un jugador con una mano de máximo 11 cartas. 
+ * Puedo pedir cartas, mostrar mi mano y ver mi puntaje total.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Alejandro Guerra Rodríguez
+ * @version 05-10-2024
  */
 public class Jugador
 {
@@ -11,6 +12,8 @@ public class Jugador
     private Carta[] mano;
     //La carta en ese índice está vacía. La anterior a esa no está vacía.
     private int ultimaCarta;
+    //Condición para saber si el jugador está vivo o no
+    private boolean estaVivo;
 
     //El método constructor
     public Jugador()
@@ -18,6 +21,7 @@ public class Jugador
         //Lo creo de máximo 11 cartas ya que es el la cantidad necesaria para sumar 21 con el peor juego posible.
         this.mano = new Carta[11];
         this.ultimaCarta = 0;
+        this.estaVivo = true;
     }
     
     //Setters y getters
@@ -27,11 +31,32 @@ public class Jugador
     public void setMano(Carta[] mano){
         this.mano = mano;
     }
+    public int getUltimaCarta(){
+        return this.ultimaCarta;
+    }
+    public void setUltimaCarta(int ultimaCarta){
+        this.ultimaCarta = ultimaCarta;
+    }
+    public boolean getEstaVivo(){
+        return this.estaVivo;
+    }
+    public void setEstaVivo(boolean estaVivo){
+        this.estaVivo = estaVivo;
+    }
     
     //Pde una carta y la agrega a la mano del jugador
-    public void pedirCarta(Carta carta){
-        this.mano[ultimaCarta] = carta;
+    public void pedirCarta(Naipe naipe){
+        //Obtengo el índice de la última carta de la baraja completa
+        int indiceUltimaCarta = naipe.getUltimaCarta();
+        //Obtengo la baraja completa
+        Carta[] baraja = naipe.getBaraja();
+        //Entrego la carta al final de la mano del jugador, la última carta del mazo
+        this.mano[this.ultimaCarta] = baraja[indiceUltimaCarta];
+        //Reduzco el contador de la última carta de la baraja completa. Ese índice sí tiene una carta
+        naipe.setUltimaCarta(indiceUltimaCarta-1);
+        //Aumento el contador de la última carta de la mano del jugador. Ese índice tiene una carta vacía
         this.ultimaCarta += 1;
+        
     }
     
     //Muestra la mano del jugador
@@ -46,11 +71,12 @@ public class Jugador
     }
     
     //Obtiene el puntaje total de la mano actual del jugador
-    public int obtenerPuntajeTotal(){
+    public int puntajeTotal(){
         int puntaje = 0;
-        for (int i = 0; i < this.ultimaCarta; i++){
-            Carta cartaEnAnalisis = this.mano[i];
-            puntaje += cartaEnAnalisis.getPuntaje();
+        for(Carta carta:this.mano){
+            if (carta != null){
+                puntaje += carta.getPuntaje();
+            }
         }
         return puntaje;
     }

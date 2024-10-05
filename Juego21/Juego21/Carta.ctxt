@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Carta
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Carta\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ "Carta"\ crea\ una\ carta\ con\ atributos\ de\ palo\ y\ valor.\ \r\n\ Adem\u00E1s,\ implementa\ un\ m\u00E9todo\ para\ obtener\ el\ puntaje\r\n\r\n\ @author\ Alejandro\ Guerra\ Rodr\u00EDguez\r\n\ @version\ 05-10-2024\r\n
 comment1.params=valor\ palo
 comment1.target=Carta(java.lang.String,\ java.lang.String)
 comment2.params=

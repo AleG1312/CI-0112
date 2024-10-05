@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Naipe
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Naipe\ here.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ "Naipe"\ me\ crea\ un\ array\ de\ objetos\ "Carta".\r\n\ Adem\u00E1s,\ me\ permite\ barajar\ y\ mostrar\ el\ naipe\r\n\r\n\ @author\ Alejandro\ Guerra\ Rodr\u00EDguez\r\n\ @version\ 05-10-2024\r\n
 comment1.params=
 comment1.target=Naipe()
 comment2.params=
@@ -15,6 +15,4 @@ comment6.params=
 comment6.target=void\ barajar()
 comment7.params=
 comment7.target=void\ mostrarBaraja()
-comment8.params=
-comment8.target=Carta\ entregarCarta()
-numComments=9
+numComments=8
