@@ -22,7 +22,7 @@ public class main
         //Creo los jugadores
         Jugador jugador = new Jugador();
         Jugador casa = new Jugador();
-
+        
         //Reparto dos cartas a la casa y jugador
         for(int i = 0; i < 2; i++){
             casa.pedirCarta(naipe);
