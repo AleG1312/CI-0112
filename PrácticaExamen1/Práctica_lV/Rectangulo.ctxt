@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Rectangulo
+comment1.params=ancho\ alto
+comment1.target=Rectangulo(double,\ double)
+comment2.params=
+comment2.target=double\ getAncho()
+comment3.params=ancho
+comment3.target=void\ setAncho(double)
+comment4.params=
+comment4.target=double\ getAlto()
+comment5.params=alto
+comment5.target=void\ setAlto(double)
+comment6.params=
+comment6.target=double\ calcularArea()
+comment7.params=
+comment7.target=java.lang.String\ obtenerInfo()
+numComments=8

@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=GestorDeRectangulos
+comment1.params=rectangulos
+comment1.target=Rectangulo\ encontrarRectanguloMayor(Rectangulo[])
+numComments=2
