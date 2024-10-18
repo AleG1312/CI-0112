@@ -1,14 +1,14 @@
-
 /**
- * Write a description of class Tabla here.
+ * Tabla
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Alejandro Guerra Rodríguez
+ * @version 20-10-2024
  */
 public class Tabla
 {
     private static double anchoEstandar = 4.0;
     private static double largoEstandar = 6.0;
+    private static double areaEstandar = anchoEstandar*largoEstandar;
     private static double precioEstandar = 24000.0;
     
     private double ancho;
@@ -21,8 +21,6 @@ public class Tabla
         this.ancho = ancho;
         this.largo = largo;
         this.area = ancho * largo;
-        
-        double areaEstandar = this.anchoEstandar*this.largoEstandar;
         this.precio = (this.area/areaEstandar)*precioEstandar;
     }
     public static double getAnchoEstandar() {
@@ -36,6 +34,9 @@ public class Tabla
     }
     public static void setLargoEstandar(double nuevoLargo) {
         largoEstandar = nuevoLargo;
+    }
+    public static double getAreaEstandar() {
+        return areaEstandar;
     }
     public static double getPrecioEstandar() {
         return precioEstandar;
@@ -58,9 +59,6 @@ public class Tabla
     public double getArea() {
         return this.area;
     }
-    public static double getAreaEstandar() {
-        return anchoEstandar * largoEstandar;
-    }
     public double getPrecio() {
         return this.precio;
     }
@@ -80,10 +78,10 @@ public class Tabla
     public void mostrarDetalles(){
         System.out.println("\n--------Detalles de Tabla Estandar--------");
         System.out.println("Ancho: " + anchoEstandar + " | Largo: " + largoEstandar);
-        System.out.println("Área: " + getAreaEstandar() + " | Precio: " + precioEstandar);
+        System.out.println("Área: " + areaEstandar + " | Precio: " + precioEstandar);
         
         System.out.println("\n--------Detalles de Tabla--------");
         System.out.println("Ancho: " + this.ancho + " | Largo: " + this.largo);
-        System.out.println("Área: " + getArea() + " | Precio: " + this.precio);
+        System.out.println("Área: " + this.area + " | Precio: " + this.precio);
     }
 }

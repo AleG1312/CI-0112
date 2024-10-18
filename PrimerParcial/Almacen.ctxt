@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Almacen
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Almacen\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=int\ getPosicionUltimaTabla()
+comment2.params=posicionUltimaTabla
+comment2.target=void\ setPosicionUltimaTabla(int)
+comment3.params=
+comment3.target=Almacen()
+comment4.params=tablaCliente
+comment4.target=Tabla\ cortar(Tabla)
+comment5.params=
+comment5.target=void\ ordenar()
+comment6.params=
+comment6.target=void\ agregarTablaEstandar()
+numComments=7

@@ -1,17 +1,14 @@
 import java.util.Scanner;
 /**
- * Write a description of class main here.
+ * main
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Alejandro Guerra Rodríguez
+ * @version 20-10-2024
  */
 public class main
 {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
-        
-        
-        
         boolean continuar = true;
         while (continuar){
             //Creo una tabla:
@@ -19,13 +16,14 @@ public class main
             //Visualizo la información:
             
             tablaCliente.mostrarDetalles();
+            double aE = tablaCliente.getAreaEstandar();
+            System.out.println("El área estándar es de: " + aE);
             System.out.println("\nSi desea salir digite 1");
             int decision = input.nextInt();
             continuar = (decision == 1)? false:true;
         }
         
     }
-    
     private static Tabla crearTablaCliente(){
         Scanner input = new Scanner(System.in);
         System.out.println("Ingrese el ancho: ");
