@@ -5,6 +5,4 @@ comment1.params=args
 comment1.target=void\ main(java.lang.String[])
 comment2.params=
 comment2.target=Tabla\ crearTablaCliente()
-comment3.params=anchoEstandar\ largoEstandar
-comment3.target=void\ CambioMedidasStandar(double,\ double)
-numComments=4
+numComments=3

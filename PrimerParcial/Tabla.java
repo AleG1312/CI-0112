@@ -76,12 +76,13 @@ public class Tabla
         this.largo = medidaTemporal;
     }
     public void mostrarDetalles(){
-        System.out.println("\n--------Detalles de Tabla Estandar--------");
-        System.out.println("Ancho: " + anchoEstandar + " | Largo: " + largoEstandar);
-        System.out.println("Área: " + areaEstandar + " | Precio: " + precioEstandar);
-        
         System.out.println("\n--------Detalles de Tabla--------");
         System.out.println("Ancho: " + this.ancho + " | Largo: " + this.largo);
-        System.out.println("Área: " + this.area + " | Precio: " + this.precio);
+        System.out.println("Área: " + this.area + " | Precio: " + this.precio + "\n");
+    }
+    public void mostrarDetallesEstandar(){
+        System.out.println("\n--------Detalles de Tabla Estandar--------");
+        System.out.println("Ancho: " + anchoEstandar + " | Largo: " + largoEstandar);
+        System.out.println("Área: " + areaEstandar + " | Precio: " + precioEstandar + "\n");
     }
 }
