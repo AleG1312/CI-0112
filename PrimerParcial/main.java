@@ -7,54 +7,67 @@ import java.util.Scanner;
  */
 public class main
 {
+    private static Tabla crearTabla(){
+        Scanner input = new Scanner(System.in);
+        //Solicito los datos
+        System.out.println("Ancho[Máx:" + Tabla.getAnchoEstandar() + "m]: ");
+        double ancho = input.nextDouble();
+        System.out.println("Largo[Máx:" + Tabla.getLargoEstandar() + "m]: ");
+        double largo = input.nextDouble();
+        //Creo la tabla
+        Tabla tabla = new Tabla(ancho, largo);
+        //Acomodo su orientación
+        tabla.orientar();
+        //La retorno
+        return tabla;
+    }
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
         //Creo mi almacén vacío
         Almacen almacen = new Almacen();
         boolean continuar = true;
         while (continuar){
-            System.out.println("Para salir, ingrese una tabla vacía (0,0)");
-            //Creo una tabla:
-            Tabla tablaCliente = crearTablaCliente();
-            //Condición de salida
-            if (tablaCliente.getAncho() == 0 || tablaCliente.getLargo() == 0){
-                continuar = false;
-            }
-            else{
-                //La agrego al almacén
-                almacen.agregarTabla(tablaCliente);
-                //Visualizo la información:
-                almacen.mostrarAlmacen();
-                System.out.println("Desea ordenar el almacén?(1:Sí)");
-                int decision = input.nextInt();
-                if (decision == 1){
-                    almacen.ordenar();
+            mostrarMenu();
+            int decision = input.nextInt();
+            int indice;
+            switch (decision){
+                case 1:
+                    System.out.println("Estado actual del almacén: ");
                     almacen.mostrarAlmacen();
-                }
+                    break;
+                case 2:
+                    System.out.println("Ingrese los datos de la tabla que desea cortar: ");
+                    Tabla tablaCliente= crearTabla();
+                    boolean corteValido = almacen.corteValido(tablaCliente);
+                    if(corteValido){
+                        System.out.println("\nEstado de Corte: Su petición es válida y está en proceso\n");
+                        int indiceTablaMadre = almacen.indiceTablaAUtilizar(tablaCliente);
+                        
+                        System.out.println("El estado actual del almacén es: ");
+                        almacen.mostrarAlmacen();
+                        System.out.println("-----------------------------------------");
+                        System.out.println("\nVamos a realizar el corte de la tabla #" + indiceTablaMadre + " del almacén.\n");
+                        almacen.cortarTabla(indiceTablaMadre, tablaCliente);
+                        System.out.println("Su tabla ha sido cortado exitosamente, la información es la siguiente:");
+                        tablaCliente.detalles();
+                    }
+                    else{
+                        System.out.println("Estado de Corte: Las dimensiones ingresadas superan la dimensiones máximas");
+                    }
+                    break;
+                case 3:
+                    continuar = false;
+                    break;
+                default:
+                    System.out.println("Por favor ingrese una opción válida");
+                    break;
             }
         }
-        System.out.println("Ingrese la posición de la tabla que desea eliminar: [0," + (almacen.getPrimeraPosicionVacia()-1) + "]");
-        int posicion = input.nextInt();
-        almacen.eliminarTabla(posicion);
-        almacen.mostrarAlmacen();
     }
-    private static Tabla crearTablaCliente(){
-        Scanner input = new Scanner(System.in);
-        //Solicito los datos
-        System.out.println("Ingrese las dimensiones de la tabla que desea: ");
-        System.out.println("Ancho: ");
-        double ancho = input.nextDouble();
-        System.out.println("Largo: ");
-        double largo = input.nextDouble();
-        //Creo la tabla
-        Tabla tablaCliente = new Tabla(ancho, largo);
-        //La retorno
-        return tablaCliente;
+    private static void mostrarMenu(){
+        System.out.println("Ingrese la opción que desea ejecutar");
+        System.out.println("1. Mostrar almacén");
+        System.out.println("2. Cortar tabla");
+        System.out.println("3. Salir");
     }
-    /**
-    private static void CambioMedidasStandar(double anchoEstandar, double largoEstandar){
-        Tabla.setAnchoEstandar(anchoEstandar);
-        Tabla.setLargoEstandar(largoEstandar);
-    }
-    **/
 }

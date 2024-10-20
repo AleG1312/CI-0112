@@ -20,7 +20,7 @@ public class Tabla
     {
         this.ancho = ancho;
         this.largo = largo;
-        this.area = ancho * largo;
+        this.area = this.ancho * this.largo;
         this.precio = (this.area/areaEstandar)*precioEstandar;
     }
     public static double getAnchoEstandar() {
@@ -59,10 +59,16 @@ public class Tabla
     public double getArea() {
         return this.area;
     }
+    public void recalcularArea(){
+        this.area = this.ancho * this.largo;
+    }
     public double getPrecio() {
         return this.precio;
     }
-    public void acomodarOrientacion(){
+    public void recalcularPrecio(){
+        this.precio = (this.area/areaEstandar)*precioEstandar;
+    }
+    public void orientar(){
         double medidaTemporal;
         if(this.ancho > this.largo){
             medidaTemporal = this.ancho;
@@ -75,13 +81,13 @@ public class Tabla
         this.ancho = this.largo;
         this.largo = medidaTemporal;
     }
-    public void mostrarDetalles(){
-        System.out.println("\n--------Detalles de Tabla--------");
+    public void detalles(){
+        System.out.println("--------Detalles de Tabla--------");
         System.out.println("Ancho: " + this.ancho + " | Largo: " + this.largo);
         System.out.println("Área: " + this.area + " | Precio: " + this.precio + "\n");
     }
-    public void mostrarDetallesEstandar(){
-        System.out.println("\n--------Detalles de Tabla Estandar--------");
+    public void detallesEstandar(){
+        System.out.println("--------Detalles de Tabla Estandar--------");
         System.out.println("Ancho: " + anchoEstandar + " | Largo: " + largoEstandar);
         System.out.println("Área: " + areaEstandar + " | Precio: " + precioEstandar + "\n");
     }
