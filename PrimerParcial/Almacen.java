@@ -9,8 +9,12 @@ public class Almacen
     private Tabla[] tablas;
     //En esta posición, no hay tabla. Sino en la anterior
     private int primeraPosicionVacia;
+    //Setters y getters
     public Tabla[] getTablas(){
         return this.tablas;
+    }
+    public void setTablas(Tabla[] tablas){
+        this.tablas = tablas;
     }
     public int getPrimeraPosicionVacia(){
         return this.primeraPosicionVacia;
@@ -18,13 +22,12 @@ public class Almacen
     public void setPrimeraPosicionVacia(int primeraPosicionVacia){
         this.primeraPosicionVacia = primeraPosicionVacia;
     }
+    //Método constructor
     public Almacen(){
         this.tablas = new Tabla[500];
         this.primeraPosicionVacia = 0;
     }
-    public Tabla cortar(Tabla tablaCliente){
-        return null;
-    }
+    //Ordeno las tablas del almacén de menor a mayor ancho y menor a mayor largo para las tablas de mismo ancho
     public void ordenar(){
         //Primero acomodo la orientación de todas las tablas del almacén:
         for (int i = 0; i < this.primeraPosicionVacia; i++){
@@ -32,12 +35,11 @@ public class Almacen
         }
         //Defino mi tabla intermedia
         Tabla tablaTemporal;
-        //Comienzo las comparaciones
+        //Comienzo las comparaciones(algoritmo de ordenamiento)
         for (int i = 0; i < this.primeraPosicionVacia; i++){
             for (int j = (i+1); j < this.primeraPosicionVacia; j++){
                 //Comparo los anchos:
                 tablaTemporal = this.tablas[i];
-                //System.out.println("Comparando: " + this.tablas[i].getAncho() + ",con: " + this.tablas[j].getAncho());
                 if(this.tablas[i].getAncho() > this.tablas[j].getAncho()){
                     this.tablas[i] = this.tablas[j];
                     this.tablas[j] = tablaTemporal;
@@ -53,12 +55,14 @@ public class Almacen
             }
         }
     }
+    //Método para agregar una tabla al almacén
     public void agregarTabla(Tabla tabla){
         //La agrego en la primera posicion vacía
         this.tablas[this.primeraPosicionVacia] = tabla;
         //Aumento el contador
         this.primeraPosicionVacia += 1;
     }
+    //Método para agregar una tabla estándar al almacén
     public void agregarTablaEstandar(){
         //Creo la tabla con medidas estándar
         Tabla tablaEstandar = new Tabla(Tabla.getAnchoEstandar(), Tabla.getLargoEstandar());
@@ -67,6 +71,7 @@ public class Almacen
         //Aumento el contador
         this.primeraPosicionVacia += 1;
     }
+    //Me indica si el corte solicitado por el cliente, puede ser realizado
     public boolean corteValido(Tabla tablaCliente){
         boolean corteValido = true;
         if(tablaCliente.getAncho() > Tabla.getAnchoEstandar() || tablaCliente.getLargo() > Tabla.getLargoEstandar()){
@@ -74,6 +79,7 @@ public class Almacen
         }
         return corteValido;
     }
+    //Me indica la posición del almacén de la que obtendremos la tabla a utilizar
     public int indiceTablaAUtilizar(Tabla tablaCliente){
         int indiceTablaMadre = 0;
         for(int i = 0; i < this.primeraPosicionVacia; i++){
@@ -87,10 +93,12 @@ public class Almacen
         indiceTablaMadre = (this.primeraPosicionVacia-1);
         return indiceTablaMadre;
     }
+    //Para eliminar la última tabla del almacén
     public void eliminarUltimaTabla(){
         this.tablas[this.primeraPosicionVacia-1] = null;
         this.primeraPosicionVacia -= 1;
     }
+    //Para cortar una tabla
     public void cortarTabla(int indiceTablaMadre, Tabla tablaCliente){
         /**
          * El primer corte lo realizo paralelo al ancho:
@@ -130,6 +138,7 @@ public class Almacen
         //Ordeno el almacén al finalizar todas las operaciones
         ordenar();
     }
+    //Para mostrar los detalles del almacén
     public void mostrarAlmacen(){
         if(this.primeraPosicionVacia == 0){
             System.out.println("\nAlmacén vacío\n");

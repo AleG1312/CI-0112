@@ -6,7 +6,8 @@ import java.util.Scanner;
  * @version 20-10-2024
  */
 public class main
-{
+{   
+    //Para crear una tabla
     private static Tabla crearTabla(){
         Scanner input = new Scanner(System.in);
         //Solicito los datos
@@ -25,10 +26,13 @@ public class main
         Scanner input = new Scanner(System.in);
         //Creo mi almacén vacío
         Almacen almacen = new Almacen();
+        //Esta es mi condición de salida
         boolean continuar = true;
         while (continuar){
             mostrarMenu();
+            //El usuario elige una de las opciones disponibles del menú
             int decision = input.nextInt();
+            //Declaro variable a utilizar posteriormente
             int indice;
             switch (decision){
                 case 1:
@@ -38,11 +42,12 @@ public class main
                 case 2:
                     System.out.println("Ingrese los datos de la tabla que desea cortar: ");
                     Tabla tablaCliente= crearTabla();
+                    //Hago el corte solo si es válido (medidas menores a las máximas)
                     boolean corteValido = almacen.corteValido(tablaCliente);
                     if(corteValido){
                         System.out.println("\nEstado de Corte: Su petición es válida y está en proceso\n");
+                        //La tabla madre es la tabla que agarro del almacén para realizar los cortes y entregarlas al usuario
                         int indiceTablaMadre = almacen.indiceTablaAUtilizar(tablaCliente);
-                        
                         System.out.println("El estado actual del almacén es: ");
                         almacen.mostrarAlmacen();
                         System.out.println("-----------------------------------------");
@@ -64,6 +69,7 @@ public class main
             }
         }
     }
+    //Muestra las opciones disponibles
     private static void mostrarMenu(){
         System.out.println("Ingrese la opción que desea ejecutar");
         System.out.println("1. Mostrar almacén");

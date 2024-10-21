@@ -15,7 +15,8 @@ public class Tabla
     private double largo;
     private double area;
     private double precio;
-
+    
+    //Método constructor
     public Tabla(double ancho, double largo)
     {
         this.ancho = ancho;
@@ -23,6 +24,7 @@ public class Tabla
         this.area = this.ancho * this.largo;
         this.precio = (this.area/areaEstandar)*precioEstandar;
     }
+    //Setters y getters
     public static double getAnchoEstandar() {
         return anchoEstandar;
     }
@@ -68,6 +70,7 @@ public class Tabla
     public void recalcularPrecio(){
         this.precio = (this.area/areaEstandar)*precioEstandar;
     }
+    //Orienta la tabla en caso de que el ancho sea mayor al largo
     public void orientar(){
         double medidaTemporal;
         if(this.ancho > this.largo){
@@ -76,19 +79,10 @@ public class Tabla
             this.largo = medidaTemporal;
         }
     }
-    public void invertirOrientacion(){
-        double medidaTemporal = this.ancho;
-        this.ancho = this.largo;
-        this.largo = medidaTemporal;
-    }
+    //Despliega la información de la tabla
     public void detalles(){
         System.out.println("--------Detalles de Tabla--------");
         System.out.println("Ancho: " + this.ancho + " | Largo: " + this.largo);
         System.out.println("Área: " + this.area + " | Precio: " + this.precio + "\n");
-    }
-    public void detallesEstandar(){
-        System.out.println("--------Detalles de Tabla Estandar--------");
-        System.out.println("Ancho: " + anchoEstandar + " | Largo: " + largoEstandar);
-        System.out.println("Área: " + areaEstandar + " | Precio: " + precioEstandar + "\n");
     }
 }
