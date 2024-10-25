@@ -1,11 +1,13 @@
 import javax.swing.*;
+import java.io.FileWriter;
+import java.io.IOException;
 /**
  * VentanaPrincipal
  *
  * @author Alejandro Guerra Rodríguez
  * @version 22/10/2024
  */
-public class VentanaPrincipal extends JFrame //Heredo la clase JFrame
+public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
 /**
  * Mi clase VentanaPrincipal va a tener todos los métodos de la clase JFrame (de la biblioteca javax.swing)
  * junto con los métodos que yo le decida agregar.
@@ -13,7 +15,7 @@ public class VentanaPrincipal extends JFrame //Heredo la clase JFrame
  * Un Frame es una ventana "top-level" que tiene un títiulo y un borde
  * https://docs.oracle.com/javase/8/docs/api/index.html?javax/swing/package-summary.html
  */
-{
+
     //Método constructor
     public VentanaPrincipal(){
         /**
@@ -72,14 +74,87 @@ public class VentanaPrincipal extends JFrame //Heredo la clase JFrame
         /**
          * Parte 3:
          */
-        //'salirItem' es el item que creé anteriormente
+
+        //'salirItem' es el item que creé anteriormente. Le agrego comportamiento al botón de salir.
         salirItem.addActionListener(e -> System.exit(0));
+
+
+        
+        /**
+         * Parte 4: Creo el espacio para ingresar los datos
+         */
+        
+         JPanel panelFormulario = new JPanel();
+         panelFormulario.setLayout(new BoxLayout(panelFormulario, BoxLayout.Y_AXIS));
+        
+         JLabel etiquetaNombre = new JLabel("Nombre: ");
+         JTextField campoNombre = new JTextField(20);
+
+         JLabel etiquetaEmail = new JLabel("Email");
+         JTextField campoEmail = new JTextField(20);
+
+         JLabel etiquetaTelefono = new JLabel("Telefono");
+         JTextField campoTelefono = new JTextField(20);
+         campoTelefono.setSize(1,1);
+        
+         panelFormulario.add(etiquetaNombre);
+         panelFormulario.add(campoNombre);
+         panelFormulario.add(etiquetaEmail);
+         panelFormulario.add(campoEmail);
+         panelFormulario.add(etiquetaTelefono);
+         panelFormulario.add(campoTelefono);
+         add(panelFormulario);
+
+        
+        //  /**
+        //   * Parte 5: Añado los botones y funcionalidad para guardar los datos
+        //   */
+
+        // JButton botonGuardar = new JButton("Guardar");
+
+        // botonGuardar.addActionListener(e -> {
+        //     String nombre = campoNombre.getText();
+        //     String email = campoEmail.getText();
+        //     String telefono = campoTelefono.getText();
+            
+
+        //     try{
+        //         FileWriter writer = new FileWriter("datos_usuario.txt", true);
+        //         writer.write("Nombre: " + nombre + ", Email: " + email + ", Teléfono: " + telefono);
+        //         writer.close();
+        //         JOptionPane.showMessageDialog(null, "Datos guardados exitosamente.");
+        //     } catch (IOException ex){
+        //         JOptionPane.showMessageDialog(null, "Error al guardar los datos");
+        //     }
+        // });
+        // panelFormulario.add(botonGuardar);
+
+
+        /**
+         * Parte 6:
+         */
+
+
+         /**
+          * JCheckBox(String text)
+          * Creates an initially unselected check box with text.
+          */
+        JCheckBox terminosCondiciones = new JCheckBox("Términos y Condiciones");
+
         
 
+        /**
+         * setBounds(int x, int y, int width, int height)
+         * Moves and resizes this component.
+         */
+        //terminosCondiciones.setBounds(10,10,150,30);
+        //panelFormulario.add(terminosCondiciones);
+        menuBar.add(terminosCondiciones);
 
 
 
     }
+
     public static void main(String[] args){
         //Creo el objeto ventana
         VentanaPrincipal ventana = new VentanaPrincipal();
