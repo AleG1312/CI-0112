@@ -1,6 +1,6 @@
-import javax.swing.*;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.swing.*;
 /**
  * VentanaPrincipal
  *
@@ -85,6 +85,12 @@ public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
          */
         
          JPanel panelFormulario = new JPanel();
+         /**
+          * El Layout me define la manera en la que se van a desplegar los elementos.
+          Si lo defino como null, entonces tendría que especificar la posición de todos los elementos
+          mediante el setBounds.
+                    panelFormulario.setLayout(null);
+          */
          panelFormulario.setLayout(new BoxLayout(panelFormulario, BoxLayout.Y_AXIS));
         
          JLabel etiquetaNombre = new JLabel("Nombre: ");
@@ -116,7 +122,6 @@ public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
         //     String nombre = campoNombre.getText();
         //     String email = campoEmail.getText();
         //     String telefono = campoTelefono.getText();
-            
 
         //     try{
         //         FileWriter writer = new FileWriter("datos_usuario.txt", true);
@@ -129,29 +134,68 @@ public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
         // });
         // panelFormulario.add(botonGuardar);
 
+        /**
+          * Parte 5.1: Hago que el botón guardar ya implementado tenga la funcionalidad de guardar
+          */
+
+          guardarItem.addActionListener(e -> {
+              String nombre = campoNombre.getText();
+              String email = campoEmail.getText();
+              String telefono = campoTelefono.getText();
+  
+              try{
+                  FileWriter writer = new FileWriter("datos_usuario.txt", true);
+                  writer.write("Nombre: " + nombre + ", Email: " + email + ", Teléfono: " + telefono);
+                  writer.close();
+                  JOptionPane.showMessageDialog(null, "Datos guardados exitosamente.");
+              } catch (IOException ex){
+                  JOptionPane.showMessageDialog(null, "Error al guardar los datos");
+              }
+          });
 
         /**
-         * Parte 6:
+         * Parte 6.1: Añadir un JComboBox para el tipo de usuario
+         */
+        
+         //Las opciones que va a tener el combo box
+        String[] opciones = {"Cliente" , "Empleado" , "Administrador"};
+        //Creo el comboBox
+        JComboBox<String> comboBox = new JComboBox<>(opciones);
+        //Lo añado al panelFormulario (a la ventana en la que tengo mis espacios para meter datos)
+        panelFormulario.add(comboBox);
+
+        /**
+         * Parte 6.2: Incluir un JCheckBox para acpetar términos y condiciones
          */
 
-
-         /**
-          * JCheckBox(String text)
-          * Creates an initially unselected check box with text.
-          */
+        //Creo mi checkBox
         JCheckBox terminosCondiciones = new JCheckBox("Términos y Condiciones");
 
-        
-
-        /**
-         * setBounds(int x, int y, int width, int height)
-         * Moves and resizes this component.
-         */
-        //terminosCondiciones.setBounds(10,10,150,30);
-        //panelFormulario.add(terminosCondiciones);
+        //Lo añado a mi menuBar
         menuBar.add(terminosCondiciones);
 
 
+        /**
+         * Parte 6.3: Botón para limpiar los datos
+         */
+
+        //Creo mi botón
+        JButton limpiar = new JButton("Limpiar");
+        //Le añado las funcionalidades
+        limpiar.addActionListener(e -> {  
+            campoNombre.setText(null); 
+            campoEmail.setText(null);
+            campoTelefono.setText(null);
+        });
+        //Lo añado a la barra del menú
+        menuBar.add(limpiar);
+
+
+        /**
+         * Parte 6.4: Validación adicional para el botón guardar
+         */
+
+         //if (comboBox.getSelectedIndex() != -1);
 
     }
 
