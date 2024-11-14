@@ -8,13 +8,13 @@ import javax.swing.*;
  * @version 22/10/2024
  */
 public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
-/**
- * Mi clase VentanaPrincipal va a tener todos los métodos de la clase JFrame (de la biblioteca javax.swing)
- * junto con los métodos que yo le decida agregar.
- * 
- * Un Frame es una ventana "top-level" que tiene un títiulo y un borde
- * https://docs.oracle.com/javase/8/docs/api/index.html?javax/swing/package-summary.html
- */
+    /**
+     * Mi clase VentanaPrincipal va a tener todos los métodos de la clase JFrame (de la biblioteca javax.swing)
+     * junto con los métodos que yo le decida agregar.
+     * 
+     * Un Frame es una ventana "top-level" que tiene un títiulo y un borde
+     * https://docs.oracle.com/javase/8/docs/api/index.html?javax/swing/package-summary.html
+     */
 
     //Método constructor
     public VentanaPrincipal(){
@@ -78,8 +78,6 @@ public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
         //'salirItem' es el item que creé anteriormente. Le agrego comportamiento al botón de salir.
         salirItem.addActionListener(e -> System.exit(0));
 
-
-        
         /**
          * Parte 4: Creo el espacio para ingresar los datos
          */
@@ -114,6 +112,7 @@ public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
         
         //  /**
         //   * Parte 5: Añado los botones y funcionalidad para guardar los datos
+        //   *  IMPORTANTE: Esta parte la comento, ya que al final le agrego una funcionalidad extra al botón en la que incluyo lo escrito acá
         //   */
 
         // JButton botonGuardar = new JButton("Guardar");
@@ -136,32 +135,37 @@ public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
 
         /**
           * Parte 5.1: Hago que el botón guardar ya implementado tenga la funcionalidad de guardar
+          * IMPORTANTE: Esto es personal, para probar. Al final le agrego la funioncalidad
           */
-
-          guardarItem.addActionListener(e -> {
-              String nombre = campoNombre.getText();
-              String email = campoEmail.getText();
-              String telefono = campoTelefono.getText();
-  
-              try{
-                  FileWriter writer = new FileWriter("datos_usuario.txt", true);
-                  writer.write("Nombre: " + nombre + ", Email: " + email + ", Teléfono: " + telefono);
-                  writer.close();
-                  JOptionPane.showMessageDialog(null, "Datos guardados exitosamente.");
-              } catch (IOException ex){
-                  JOptionPane.showMessageDialog(null, "Error al guardar los datos");
-              }
-          });
+        /**
+        guardarItem.addActionListener(e -> {
+          String nombre = campoNombre.getText();
+          String email = campoEmail.getText();
+          String telefono = campoTelefono.getText();
+        
+          try{
+              FileWriter writer = new FileWriter("datos_usuario.txt", true);
+              writer.write("Nombre: " + nombre + ", Email: " + email + ", Teléfono: " + telefono);
+              writer.close();
+              JOptionPane.showMessageDialog(null, "Datos guardados exitosamente.");
+          } catch (IOException ex){
+              JOptionPane.showMessageDialog(null, "Error al guardar los datos");
+          }
+        });
+        **/
 
         /**
          * Parte 6.1: Añadir un JComboBox para el tipo de usuario
          */
         
-         //Las opciones que va a tener el combo box
+        //Las opciones que va a tener el combo box
         String[] opciones = {"Cliente" , "Empleado" , "Administrador"};
         //Creo el comboBox
         JComboBox<String> comboBox = new JComboBox<>(opciones);
+        // Creo el título
+        JLabel label = new JLabel("Tipo de usuario:");
         //Lo añado al panelFormulario (a la ventana en la que tengo mis espacios para meter datos)
+        panelFormulario.add(label);
         panelFormulario.add(comboBox);
 
         /**
@@ -194,9 +198,27 @@ public class VentanaPrincipal extends JFrame {//Heredo la clase JFrame
         /**
          * Parte 6.4: Validación adicional para el botón guardar
          */
-
-         //if (comboBox.getSelectedIndex() != -1);
-
+        
+        guardarItem.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null,comboBox.getSelectedIndex());
+            if((comboBox.getSelectedIndex() == -1) ||!terminosCondiciones.isSelected()){
+                JOptionPane.showMessageDialog(null, "Verifique haber acpetado los términos y condiciones y haber seleccionado un tipo de usuario.");
+            }
+            else{
+                String nombre = campoNombre.getText();
+                String email = campoEmail.getText();
+                String telefono = campoTelefono.getText();
+                
+                try{
+                  FileWriter writer = new FileWriter("datos_usuario.txt", true);
+                  writer.write("Nombre: " + nombre + ", Email: " + email + ", Teléfono: " + telefono);
+                  writer.close();
+                  JOptionPane.showMessageDialog(null, "Datos guardados exitosamente.");
+                } catch (IOException ex){
+                  JOptionPane.showMessageDialog(null, "Error al guardar los datos");
+                }
+            }
+        });
     }
 
     public static void main(String[] args){

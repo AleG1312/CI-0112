@@ -3,6 +3,7 @@ comment0.target=VentanaPrincipal
 comment0.text=\r\n\ VentanaPrincipal\r\n\r\n\ @author\ Alejandro\ Guerra\ Rodr\u00EDguez\r\n\ @version\ 22/10/2024\r\n
 comment1.params=
 comment1.target=VentanaPrincipal()
+comment1.text=\r\n\ Mi\ clase\ VentanaPrincipal\ va\ a\ tener\ todos\ los\ m\u00E9todos\ de\ la\ clase\ JFrame\ (de\ la\ biblioteca\ javax.swing)\r\n\ junto\ con\ los\ m\u00E9todos\ que\ yo\ le\ decida\ agregar.\r\n\ \r\n\ Un\ Frame\ es\ una\ ventana\ "top-level"\ que\ tiene\ un\ t\u00EDtiulo\ y\ un\ borde\r\n\ https\://docs.oracle.com/javase/8/docs/api/index.html?javax/swing/package-summary.html\r\n
 comment2.params=args
 comment2.target=void\ main(java.lang.String[])
 numComments=3
