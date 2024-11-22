@@ -30,8 +30,18 @@ public class EjerciciosRecursivos {
         }
     }
     public static int mcd(int a, int b){
-        //Debo probar hasta la raíz de un número para comprobar si tiene divisores o si es  primo.
-        return 0;
+        if(a==1 || b == 1){
+            return 1;
+        }
+        else if(a == b){
+            return a;
+        }
+        else if(a > b){
+            return mcd(a-1,b);
+        }
+        else{
+            return mcd(a,b-1);
+        }
     }
     public static int sumarArray(int[] array, int indice){
         if(indice >= array.length){
@@ -41,11 +51,30 @@ public class EjerciciosRecursivos {
         }
     }
     public static void main(String[] args) {
-        System.out.println(sumarDigitos(12345));
-        System.out.println(potencia(5,0));
-        System.out.println(potencia(4,1));
-        System.out.println(potencia(3,4));
-        System.out.println(invertirCadena("hola"));
-        System.out.println(sumarArray(new int[]{1,2,3,4}, 0));
+        // Pruebas para cada método
+
+        // Ejercicio 1: Suma de Dígitos
+        int numero = 1231231234;
+        System.out.println("Suma de dígitos de " + numero + ": " + sumarDigitos(numero));
+
+        System.out.println(123%10);
+
+        // Ejercicio 2: Potencia de un Número
+        int base = 2;
+        int exponente = 3;
+        System.out.println("Potencia de " + base + " elevado a " + exponente + ": " + potencia(base, exponente));
+
+        // Ejercicio 3: Invertir una Cadena
+        String cadena = "recursividad";
+        System.out.println("Cadena invertida de \"" + cadena + "\": " + invertirCadena(cadena));
+
+        // Ejercicio 4: Máximo Común Divisor (MCD)
+        int a = 48;
+        int b = 18;
+        System.out.println("MCD de " + a + " y " + b + ": " + mcd(a, b));
+
+        // Ejercicio 5: Suma de los Elementos de un Array
+        int[] array = {1, 2, 3, 4};
+        System.out.println("Suma de los elementos del array: " + sumarArray(array, 0));
     }
 }
