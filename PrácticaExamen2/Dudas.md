@@ -10,3 +10,4 @@ Dudas Ejercicio #3: Árbol:
             Lo digo porque si es solo mostrar los elementos, enotnces podría guardar la información de cada árbol en una lista
             y trabajar sobre ellas.
         -No sé bien cómo cerrar el corchete a la hora de imprimir la información del árbol. Implementé mi solución
+        -El método de buscarElemento, puede solo imprimir cuando lo 
