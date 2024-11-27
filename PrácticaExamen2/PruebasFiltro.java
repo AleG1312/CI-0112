@@ -1,5 +1,3 @@
-package Ejercicio_2;
-
 public class PruebasFiltro {
     public static void main(String[] args) {
         //Creo mi capa
@@ -23,14 +21,11 @@ public class PruebasFiltro {
         int columnasSalida = capa[0].length - filtroSize + 1;
         //Defino mi matrizSalida ya con las dimensiones correctas
         int[][] matrizSalida = new int[filasSalida][columnasSalida];
-
         //Recorro mi matrizSalida. Cada elemento va a ser el filtro aplicado sobre la matriz capa
         // con la esquina superior del cuadrado en la misma entrada que la entrada de mi matrizSalida.
         for(int i = 0; i < matrizSalida.length; i++){
             for(int j = 0; j < matrizSalida[0].length; j++){
-                /**
-                 * Aplico el mapeo
-                 */
+                //Aplico el mapeo
                 //1. Defino mi elemento mayor como la esquina superior izquierda de mi filtro:
                 int mayor = capa[i][j];
                 //2. Recorro la capa con mi filtro. Empezaré en la esquina superior izquierda
@@ -42,13 +37,10 @@ public class PruebasFiltro {
                         }//Fin de la comparación
                     }
                 }//Fin del recorrido del filtro
-
-
                 //3. Agrego el numero mayor del filtro a mi matriz de salida
                 matrizSalida[i][j] = mayor;
             }
         }//Fin del recorrido de mi matriz Salida
-
         return matrizSalida;
     }
     

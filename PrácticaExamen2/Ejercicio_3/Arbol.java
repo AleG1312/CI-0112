@@ -15,36 +15,33 @@ public class Arbol {
         return this.cantidadElementos;
     }
 
-    public void insertar(int valor){
+    public void insertar(NodoArbol nodo, int valor){
         if(this.nodoRaiz == null){
             this.nodoRaiz = new NodoArbol(valor);
+            this.cantidadElementos += 1;
         }else{
-            insertarRecursivo(valor, this.nodoRaiz);
+            if(valor < nodo.getValor()){
+                if(nodo.getHijoIzquierdo() == null){
+                    nodo.setHijoIzquierdo(new NodoArbol(valor));
+                    this.cantidadElementos += 1;
+                }else{
+                    insertar(nodo.getHijoIzquierdo(), valor);
+                }
+            } else if(nodo.getValor() < valor){
+                if(nodo.getHijoDerecho() == null){
+                    nodo.setHijoDerecho(new NodoArbol(valor));
+                    this.cantidadElementos += 1;
+                }else{
+                    insertar(nodo.getHijoDerecho(), valor);
+                }
+            } else {    
+                //El valor ya se encuentra en el árbol
+                return;
+            }
         }
-        this.cantidadElementos += 1;
     }
     
-    public void insertarRecursivo(int valor, NodoArbol nodoComparacion){
-        if (valor < nodoComparacion.getValor()){
-            if(nodoComparacion.getHijoIzquierdo() == null){
-                nodoComparacion.setHijoIzquierdo(new NodoArbol(valor));
-            }
-            else{
-                insertarRecursivo(valor, nodoComparacion.getHijoIzquierdo());
-            }
-        }
-        else if(nodoComparacion.getValor() < valor){
-            if(nodoComparacion.getHijoDerecho() == null){
-                nodoComparacion.setHijoDerecho(new NodoArbol(valor));
-            }
-            else{
-                insertarRecursivo(valor, nodoComparacion.getHijoDerecho());
-            }
-        }else{
-            System.out.println("El elemento '" + valor + "' ya se encuentra en el árbol.");
-        }
-    }
-
+        
     public boolean esVacio(){
         boolean vacio = false;
         if(this.nodoRaiz == null){
@@ -55,73 +52,105 @@ public class Arbol {
     
     public boolean seEncuentra(int valor){
         boolean seEncuentra = false;
-
         if (this.nodoRaiz.getValor() == valor){ //Caso base
             seEncuentra = true;
-        }else{  //Caso recursivo
-            seEncuentra = seEncuentraRecursivo(valor, this.nodoRaiz, seEncuentra);
+        }else{  //Caso Rec
+            seEncuentra = seEncuentraRec(valor, this.nodoRaiz, seEncuentra);
         }//Finliza la recursión: 
         return seEncuentra;
     }
    
-    public boolean seEncuentraRecursivo(int valor, NodoArbol nodo, boolean seEncuentra){
+    public boolean seEncuentraRec(int valor, NodoArbol nodo, boolean seEncuentra){
         if(!seEncuentra){
             if(nodo != null){   //Solo se hace el recorrido si el nodo no es nulo  
                 if(nodo.getValor() == valor){
                     return !seEncuentra;
                 }else{
-                    seEncuentra = seEncuentraRecursivo(valor, nodo.getHijoIzquierdo(), seEncuentra);
-                    seEncuentra = seEncuentraRecursivo(valor, nodo.getHijoDerecho(), seEncuentra);
+                    seEncuentra = seEncuentraRec(valor, nodo.getHijoIzquierdo(), seEncuentra);
+                    seEncuentra = seEncuentraRec(valor, nodo.getHijoDerecho(), seEncuentra);
                 }
             }
         }
         return seEncuentra;
     }
-    
-    public void iniciarPreorden(){
-        preordenRecursivo(this.nodoRaiz);
-        System.out.print("} \n");
+
+    public void imprimir(){
+        imprimirRec(this.nodoRaiz);
+        System.out.print("} \n\n");
     }
 
-    public void preordenRecursivo(NodoArbol nodo){
+    public void imprimirRec(NodoArbol nodo){
         if(nodo != null){   //Solo se hace el recorrido si el nodo no es nulo  
             if(nodo == this.nodoRaiz){
-                System.out.print("{");
+                System.out.print("{" + nodo.getValor());
             }
-            System.out.print(nodo.getValor() + ", ");
-            preordenRecursivo(nodo.getHijoIzquierdo());
-            preordenRecursivo(nodo.getHijoDerecho());
+            else{
+                System.out.print(", " + nodo.getValor());
+            }
+            imprimirRec(nodo.getHijoIzquierdo());
+            imprimirRec(nodo.getHijoDerecho());
         }
     }
 
     public void eliminar(int valor){
-        if(esVacio()){
-            System.out.println("No se puede eliminar ya que la lista se encuentra vacía.");
-        } else if(!seEncuentra(valor)){
-            System.out.println("No se puede eliminar ya que '" + valor + "' no se encuentra en la lista.");
-        } else { //En el caso de que sí esté el elemento a eliminar
-            NodoArbol nodoAEliminar = identificarNodoAEliminar(this.nodoRaiz, valor);
-            System.out.println("Hemos identificado el nodo a eliminar. Este tiene un valor de: " + nodoAEliminar.getValor());
-            //
-            if(nodoAEliminar.getHijoIzquierdo() == null && nodoAEliminar.getHijoDerecho() == null){ //Eliminamos una hoja
-                nodoAEliminar = null;
-            }
-        }
-
+        this.nodoRaiz = eliminarRec(this.nodoRaiz, valor);
     }
     
-    public NodoArbol identificarNodoAEliminar(NodoArbol nodo, int valor){
-        NodoArbol nodoAEliminar;
-        if(valor == nodo.getValor()){   //Caso Base
-            nodoAEliminar = nodo;
-        }
-        else{   //Caso Recursivo
-            if(valor < nodo.getValor()) {    //Casos recursivos
-                nodoAEliminar = identificarNodoAEliminar(nodo.getHijoIzquierdo(), valor);
-            }else{
-                nodoAEliminar = identificarNodoAEliminar(nodo.getHijoDerecho(), valor);
+    public NodoArbol eliminarRec(NodoArbol nodo, int valor){
+        if (nodo != null){
+            //Caso Base: Encontró el valor a ser eliminado
+            if(valor == nodo.getValor()){   
+                //Eliminamos una hoja:
+                if(nodo.getHijoIzquierdo() == null && nodo.getHijoDerecho() == null){ 
+                    return null;
+                }
+                //Eliminamos un nodo con un único hijo
+                else if(nodo.getHijoIzquierdo() == null ^ nodo.getHijoDerecho() == null){   
+                    if(nodo.getHijoIzquierdo() == null){//Solo tiene hijo derecho
+                        return nodo.getHijoDerecho();
+                    }else{  //Solo tiene hijo izquierdo
+                        return nodo.getHijoIzquierdo();
+                    }
+                } else{ //Eliminamos un nodo con dos hijos
+                    NodoArbol sucesor = nodoMinimo(nodo.getHijoDerecho());
+                    nodo.setValor(sucesor.getValor());
+                    nodo.setHijoDerecho(eliminarRec(nodo.getHijoDerecho(), sucesor.getValor()));
+                    return nodo;
+                }
+            }
+            if(valor < nodo.getValor()){
+                nodo.setHijoIzquierdo(eliminarRec(nodo.getHijoIzquierdo(), valor));
+            } else{
+                nodo.setHijoDerecho(eliminarRec(nodo.getHijoDerecho(), valor));
             }
         }
-        return nodoAEliminar;
+        return nodo;
+    }
+    
+    public NodoArbol nodoMinimo (NodoArbol nodo){
+        while(nodo.getHijoIzquierdo() != null){ //Caso Rec
+            return nodoMinimo(nodo.getHijoIzquierdo());
+        }
+        return nodo;
+    } 
+
+
+    public void interseccion(NodoArbol nodoArbol1, Arbol arbol2, Arbol arbolInterseccion){
+        if(nodoArbol1 == null){ //Caso base: El nodo es nulo
+        } else{ //Caso recursivo: 
+            if(arbol2.seEncuentra(nodoArbol1.getValor())){
+                arbolInterseccion.insertar(arbolInterseccion.getNodoRaiz(), nodoArbol1.getValor());
+            }
+            interseccion(nodoArbol1.getHijoIzquierdo(), arbol2, arbolInterseccion);
+            interseccion(nodoArbol1.getHijoDerecho(), arbol2, arbolInterseccion);
+        }
+    }
+    public void union(NodoArbol nodoArbol1, Arbol arbolUnion){
+        if(nodoArbol1 == null){ //Caso base: El nodo es nulo
+        } else{ //Caso recursivo: 
+            arbolUnion.insertar(arbolUnion.getNodoRaiz(), nodoArbol1.getValor());
+            union(nodoArbol1.getHijoIzquierdo(), arbolUnion);
+            union(nodoArbol1.getHijoDerecho(), arbolUnion);
+        }
     }
 }  

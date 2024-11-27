@@ -12,7 +12,6 @@ public class NodoArbol{
         this.HijoIzquierdo = null;
         this.HijoDerecho = null;
     }
-
     //Setters y getters
     public int getValor() {
         return this.valor;
@@ -32,5 +31,4 @@ public class NodoArbol{
     public void setHijoDerecho(NodoArbol nodo){
         this.HijoDerecho = nodo;
     }
-
 }

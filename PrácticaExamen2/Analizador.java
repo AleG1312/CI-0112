@@ -1,9 +1,7 @@
-package Ejercicio_1;
-
 public class Analizador {
     private int filaSecuencia;
     private int columnaSecuencia;
-    private int largoSecuencia; //La cantidad de elementos que forman la secuencia
+    private int largoSecuencia; 
 
     // Constructor 
     public Analizador() {
@@ -11,7 +9,6 @@ public class Analizador {
         this.columnaSecuencia = -1;
         this.largoSecuencia = 0;
     }
-
     // Setters y getters
     public int getFilaSecuencia() {
         return filaSecuencia;
@@ -73,13 +70,11 @@ public class Analizador {
     }
     
     public static void main(String[] args) {
-        //Creo mi matriz
         int[][] matriz = {
-            {0, 1, 2}, // Primera fila
-            {5, 0, 1}, // Segunda fila
-            {4, 3, 2}  // Tercera fila
+            {0, 1, 2}, 
+            {5, 0, 1},
+            {4, 3, 2}  
         };
-        //Creo mi objeto analizador
         Analizador analizador1 = new Analizador();
         analizador1.identificarHileraMasLarga(matriz);
     }
