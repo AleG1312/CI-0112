@@ -7,9 +7,9 @@ public class Analizador {
 
     // Constructor 
     public Analizador() {
-        this.filaSecuencia = 0;
-        this.columnaSecuencia = 0;
-        this.largoSecuencia = 1;
+        this.filaSecuencia = -1;
+        this.columnaSecuencia = -1;
+        this.largoSecuencia = 0;
     }
 
     // Setters y getters
@@ -32,64 +32,55 @@ public class Analizador {
         this.largoSecuencia = largoSecuencia;
     }
 
-    public void identificarHileraMasLarga(int[][] matriz, int filaSecuencia, int columnaSecuencia, int cantidadSecuencia) {
-        /**
-         * 1. Hacer un ciclo que recorra cada elemento de la matriz
-         * 2. Hacer otro ciclo que para cada elemento, revise todos los elementos de su cuadro adyacente
-         * 3. En el segundo ciclo, hacer métodos de comprobación para qué únicamente revise los elementos posibles
-         */
-
+    public void identificarHileraMasLarga(int[][] matriz) {
         //Inicio del ciclo que recorre cada elemento de la matriz
-        for(int i = filaSecuencia; i < matriz.length; i++){
-            for(int j = columnaSecuencia; j < matriz[0].length; j++){
-
-                System.out.println("\nEstoy analizando la entrada [" + i + "," + j + "]=" + matriz[i][j] + ", en busca de la secuencia más larga");
-
+        for(int i = 0; i < matriz.length; i++){
+            for(int j = 0; j < matriz[0].length; j++){
+                buscarSecuencia(matriz, i, j, i, j, matriz[i][j]-1, 0);
                 
-                String linea = "";
-                //Inicio del ciclo que recorre el cuadro adyacente a mi elemento en análisis
-                for(int m = i-1; m <= i+1; m++){
-                    for(int n = j-1; n <= j+1; n++){
+            }  
+        }   //Fin del ciclo que recorre la matriz
 
-
-
-                        //Inicio de las comprobaciones de los elementos adyacentes válidos
-                        if(0 <= m && m < matriz.length){
-                            if(0 <= n && n < matriz[0].length){
-                                if(i != m || j != n){   //Para ignorar el caso en el que estoy volviendo a analizar mi elemento de análisis original
-                                    // System.out.print(matriz[m][n] + ",");
-                                    linea +=matriz[m][n];
-                                    linea += ", ";
-                                    /**
-                                     * Llegados a este bloque de código, estoy analizando todos los elementos adyacentes a mi elemento de análisis
-                                     * de forma correcta sin incluir mi elemento de análisis inicial
-                                     */
-                                    
-                                    if(matriz[m][n] == (matriz[i][j]+1)){
-                                        System.out.println("He encontrado un elemento adyacente consecutivo: ");
-                                        System.out.println("Elemento en análisis: [" + i + "," + j + "]=" + matriz[i][j]);
-                                        System.out.println("Adyacente Consecutivo: [" + m + "," + n + "]=" + matriz[m][n] + "\n");
-
-
-                                    }
-                                }
-
-                            }
-
-                        }//Fin de las comprobaciones de los elementos adyacentes válidos
-
-
-
-                    }   //Fin del ciclo que recorre el cuadro adyacente
-                }
-                System.out.println("Mis elementos adyacentes al elemento en análisis son: ");
-                System.out.println(linea);
-
-
-
-            }   //Fin del ciclo que recorre la matriz
-        }
-        
-        
+        System.out.println("\nSecuencia más larga inicia en fila: " + this.filaSecuencia + 
+                            ", columna: " + this.columnaSecuencia + 
+                            ", longitud: " + this.largoSecuencia);
     }   //Fin del método 'identificarHileraMasLarga'
+
+    public void buscarSecuencia(int[][] matriz, int filaInicial, int columnaInicial, int fila, int columna, int anterior, int longitud){
+        //Caso Base: Va a detener la recursividad hasta que la entrada se salga del rango o el siguiente número no sea consecutivo
+        if(fila < 0 || columna < 0 || matriz.length <= fila || matriz[0].length <= columna || matriz[fila][columna] != (anterior+1)){
+            //System.out.println("Estoy en el caso base");
+            if(longitud > this.largoSecuencia){
+                this.largoSecuencia = longitud;
+                this.filaSecuencia = filaInicial;
+                this.columnaSecuencia = columnaInicial;
+            }
+            return;
+        }
+        int valorActual = matriz[fila][columna];
+        //Caso Recursivo: Estamos dentro del rango permitido y el número es consecutivo:
+        //1. Reviso la fila anterior
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila - 1, columna - 1, valorActual, longitud + 1);
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila - 1, columna    , valorActual, longitud + 1);
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila - 1, columna + 1, valorActual, longitud + 1);
+        //2. Reviso la fila actual
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila,     columna - 1, valorActual, longitud + 1);
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila,     columna + 1, valorActual, longitud + 1);
+        //3. Reviso la fila posterior
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila + 1, columna - 1, valorActual, longitud + 1);
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila + 1, columna,     valorActual, longitud + 1);
+        buscarSecuencia(matriz, filaInicial, columnaInicial, fila + 1, columna + 1, valorActual, longitud + 1);
+    }
+    
+    public static void main(String[] args) {
+        //Creo mi matriz
+        int[][] matriz = {
+            {0, 1, 2}, // Primera fila
+            {5, 0, 1}, // Segunda fila
+            {4, 3, 2}  // Tercera fila
+        };
+        //Creo mi objeto analizador
+        Analizador analizador1 = new Analizador();
+        analizador1.identificarHileraMasLarga(matriz);
+    }
 }
