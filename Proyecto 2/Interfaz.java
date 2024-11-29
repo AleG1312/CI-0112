@@ -188,6 +188,24 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
         //Lo agrego al JFrame
         add(contenidoEstructura);
 
+
+        /**
+         * -------------------------------------------------------------------------------------------------------------------------
+         * Panel del árbol
+         * -------------------------------------------------------------------------------------------------------------------------
+         */
+
+
+         // Crear el panel de dibujo
+         panelArbol panelArbol = new panelArbol(arbol);
+
+         // Crear el JFrame y agregar el panel dentro de un JScrollPane
+         JFrame frame = new JFrame("Árbol Binario");
+         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         frame.setSize(800, 600);
+         frame.add(new JScrollPane(panelArbol));
+         frame.setVisible(false);
+
         /**
          * -------------------------------------------------------------------------------------------------------------------------
          * Funcionalidad de todos los botones:
@@ -207,6 +225,7 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
             this.listaActiva = true;
             this.estructuraSeleccionada = true;
             fieldIngresarDatos.setText(null);   //Reseteo el textField
+            frame.setVisible(false);
         });
         /**
          * Botón: El botón de árbol en el menú
@@ -221,6 +240,7 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
             this.listaActiva = false;
             this.estructuraSeleccionada = true;
             fieldIngresarDatos.setText(null);   //Reseteo el textField
+            frame.setVisible(true);
         });
 
         /**
@@ -256,6 +276,8 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
                             arbol.insertar(num);
                             contenidoEstructura.setText(arbol.mostrar());
                         }
+                        frame.setVisible(false);
+                        frame.setVisible(true);
                     }
                 }
             }else{  //No seleccionamos una estructura
@@ -301,6 +323,8 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
                                 JOptionPane.showMessageDialog(null, "El valor '" + num + "' NO se encuentra en la lista.");
                             }
                         }
+                        frame.setVisible(false);
+                        frame.setVisible(true);
                     }
                 }
             }else{  //No seleccionamos una estructura
@@ -353,6 +377,8 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
                                 "' NO se encuentra en el árbol, por lo que no puede ser eliminado.");
                             }
                         }
+                        frame.setVisible(false);
+                        frame.setVisible(true);
                     }
                 }
             }else{  //No seleccionamos una estructura
@@ -399,6 +425,8 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
                             arbol.vaciar();
                             contenidoEstructura.setText(arbol.mostrar());
                         }
+                        frame.setVisible(false);
+                        frame.setVisible(true);
                     }
                 }
             }else{  //No seleccionamos una estructura
@@ -467,10 +495,15 @@ public class Interfaz extends JFrame {//Heredo la clase JFrame
 
         //Creo el objeto ventana
         Interfaz ventana = new Interfaz(lista, arbol);
-        
+
         //Hago mi ventana visible
         ventana.setVisible(true);
     }
+
+
+
+
+
     /**
      * Método: conversionValida
      * Propósito: Determinar si una conversión de texto a int es válida o no
