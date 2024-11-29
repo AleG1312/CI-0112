@@ -15,33 +15,35 @@ public class Arbol {
         return this.cantidadElementos;
     }
 
-    public void insertar(NodoArbol nodo, int valor){
+    public void insertar(int valor){
         if(this.nodoRaiz == null){
             this.nodoRaiz = new NodoArbol(valor);
-            this.cantidadElementos += 1;
-        }else{
-            if(valor < nodo.getValor()){
-                if(nodo.getHijoIzquierdo() == null){
-                    nodo.setHijoIzquierdo(new NodoArbol(valor));
-                    this.cantidadElementos += 1;
-                }else{
-                    insertar(nodo.getHijoIzquierdo(), valor);
-                }
-            } else if(nodo.getValor() < valor){
-                if(nodo.getHijoDerecho() == null){
-                    nodo.setHijoDerecho(new NodoArbol(valor));
-                    this.cantidadElementos += 1;
-                }else{
-                    insertar(nodo.getHijoDerecho(), valor);
-                }
-            } else {    
-                //El valor ya se encuentra en el árbol
-                return;
+        } else{
+            insertarRecursivo(valor, this.nodoRaiz);
+        }
+        this.cantidadElementos += 1;
+    }
+
+    public void insertarRecursivo(int valor, NodoArbol nodoComparacion){
+        if (valor < nodoComparacion.getValor()){
+            if(nodoComparacion.getHijoIzquierdo() == null){
+                nodoComparacion.setHijoIzquierdo(new NodoArbol(valor));
+            }
+            else{
+                insertarRecursivo(valor, nodoComparacion.getHijoIzquierdo());
+            }
+        }
+        else if(nodoComparacion.getValor() < valor){
+            if(nodoComparacion.getHijoDerecho() == null){
+                nodoComparacion.setHijoDerecho(new NodoArbol(valor));
+            }
+            else{
+                insertarRecursivo(valor, nodoComparacion.getHijoDerecho());
             }
         }
     }
+            
     
-        
     public boolean esVacio(){
         boolean vacio = false;
         if(this.nodoRaiz == null){
@@ -112,7 +114,7 @@ public class Arbol {
                         return nodo.getHijoIzquierdo();
                     }
                 } else{ //Eliminamos un nodo con dos hijos
-                    NodoArbol sucesor = nodoMinimo(nodo.getHijoDerecho());
+                    NodoArbol sucesor = encontrarMinimo(nodo.getHijoDerecho());
                     nodo.setValor(sucesor.getValor());
                     nodo.setHijoDerecho(eliminarRec(nodo.getHijoDerecho(), sucesor.getValor()));
                     return nodo;
@@ -127,30 +129,30 @@ public class Arbol {
         return nodo;
     }
     
-    public NodoArbol nodoMinimo (NodoArbol nodo){
+    public NodoArbol encontrarMinimo (NodoArbol nodo){
         while(nodo.getHijoIzquierdo() != null){ //Caso Rec
-            return nodoMinimo(nodo.getHijoIzquierdo());
+            return encontrarMinimo(nodo.getHijoIzquierdo());
         }
         return nodo;
     } 
 
 
-    public void interseccion(NodoArbol nodoArbol1, Arbol arbol2, Arbol arbolInterseccion){
-        if(nodoArbol1 == null){ //Caso base: El nodo es nulo
-        } else{ //Caso recursivo: 
-            if(arbol2.seEncuentra(nodoArbol1.getValor())){
-                arbolInterseccion.insertar(arbolInterseccion.getNodoRaiz(), nodoArbol1.getValor());
-            }
-            interseccion(nodoArbol1.getHijoIzquierdo(), arbol2, arbolInterseccion);
-            interseccion(nodoArbol1.getHijoDerecho(), arbol2, arbolInterseccion);
-        }
-    }
-    public void union(NodoArbol nodoArbol1, Arbol arbolUnion){
-        if(nodoArbol1 == null){ //Caso base: El nodo es nulo
-        } else{ //Caso recursivo: 
-            arbolUnion.insertar(arbolUnion.getNodoRaiz(), nodoArbol1.getValor());
-            union(nodoArbol1.getHijoIzquierdo(), arbolUnion);
-            union(nodoArbol1.getHijoDerecho(), arbolUnion);
-        }
-    }
+    // public void interseccion(NodoArbol nodoArbol1, Arbol arbol2, Arbol arbolInterseccion){
+    //     if(nodoArbol1 == null){ //Caso base: El nodo es nulo
+    //     } else{ //Caso recursivo: 
+    //         if(arbol2.seEncuentra(nodoArbol1.getValor())){
+    //             arbolInterseccion.insertar(arbolInterseccion.getNodoRaiz(), nodoArbol1.getValor());
+    //         }
+    //         interseccion(nodoArbol1.getHijoIzquierdo(), arbol2, arbolInterseccion);
+    //         interseccion(nodoArbol1.getHijoDerecho(), arbol2, arbolInterseccion);
+    //     }
+    // }
+    // public void union(NodoArbol nodoArbol1, Arbol arbolUnion){
+    //     if(nodoArbol1 == null){ //Caso base: El nodo es nulo
+    //     } else{ //Caso recursivo: 
+    //         arbolUnion.insertar(arbolUnion.getNodoRaiz(), nodoArbol1.getValor());
+    //         union(nodoArbol1.getHijoIzquierdo(), arbolUnion);
+    //         union(nodoArbol1.getHijoDerecho(), arbolUnion);
+    //     }
+    // }
 }  
